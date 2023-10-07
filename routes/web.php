@@ -63,7 +63,8 @@ Route::middleware([
     Route::delete('/events/{event}', [EventController::class, 'destroy'])->name('events.destroy');
 
     Route::post('/events/{event}', [ContestController::class, 'store'])->name('contests.store');
-    Route::get('/events/contests/{constest}', [ContestController::class, 'show'])->name('contests.show');
+    Route::get('/events/contest/{constest}', [ContestController::class, 'show'])->name('contests.show');
+    // Route::get('/contests/{constest}', [ContestController::class, 'show'])->name('contests.show');
 
 
 

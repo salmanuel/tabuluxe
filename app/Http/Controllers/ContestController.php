@@ -42,7 +42,6 @@ class ContestController extends Controller
             'name' => $request->name,
             'description' => $request->description,
             'event_id' => $event->id,
-
         ]);
 
 
@@ -54,13 +53,11 @@ class ContestController extends Controller
      */
     public function show(Contest $contest)
     {
+        
         $criterias = $contest->criterias;
 
-        return inertia('Events/Contests', [
-            'contest' => Contest::get()->map(fn($contest) =>[
-                'id' => $contest->id,
-                'name' => $contest->name,
-            ]),
+        return inertia('Contests/Contest', [
+            'contest' => $contest,
             'criterias' => $criterias,
         ]);
     }

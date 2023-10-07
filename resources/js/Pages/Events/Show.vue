@@ -5,8 +5,9 @@ import { provide } from 'vue';
 
 
 const props = defineProps({
-    'contests': Array,
     event: Object,
+    'contests': Array,
+
 })
 
 let form = useForm({
@@ -27,7 +28,7 @@ function formatToYYYYMMDD(dateString) {
 }
 
 const submit = () => {
-    form.put('/events/show/' + props.event.id)
+    form.put('/events/' + props.event.id)
 }
 
 let con_form = useForm({
@@ -37,8 +38,7 @@ let con_form = useForm({
 
 // Function to add a contest
 const addContest = () => {
-    con_form.post('/events/show/' + props.event.id)
-  
+    con_form.post('/events/' + props.event.id)
 };
 
 
@@ -124,7 +124,7 @@ function deleteEvent() {
                                 
                                 <td class="px-6 py-4 whitespace-no-wrap text-center border border-slate-700">
                                     <button>
-                                        <Link :href="route('contests.show', { constest: contest.id })" :active="route().current('events')">View</Link>
+                                        <Link :href="route('contests.show', contest.id )" :active="route().current('events')">View</Link>
                                     </button>
                                 </td> 
                             </tr>
@@ -177,8 +177,8 @@ function deleteEvent() {
                                 </div>
 
                                 <div class="modal-footer">
-                                    <button type="button" class="btn bg-gray-400 btn-secondary" data-bs-dismiss="modal">Close</button>
-                                    <button  class="btn bg-red-600 btn-primary" type="submit" data-bs-dismiss="modal">Add</button>
+                                    <button class="btn bg-gray-400 btn-secondary" data-bs-dismiss="modal">Close</button>
+                                    <button class="btn bg-blue-600 btn-primary" type="submit" data-bs-dismiss="modal">Add</button>
                                 </div>
                             </form>
                                 

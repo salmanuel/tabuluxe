@@ -16,7 +16,7 @@ class CriteriaSeeder extends Seeder
         $criterias = [
             [
                 'contest_id' => 1,
-                'name'=>'Test',
+                'criteria'=>'Test',
                 'description' => 'Test',
                 'weight' => 50,
             ],

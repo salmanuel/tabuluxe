@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('criterias', function (Blueprint $table) {
             $table->id();
             $table->bigInteger('contest_id')->unsigned();
-            $table->string('name');
+            $table->string('criteria');
             $table->string('description');
             $table->integer('weight');
             $table->timestamps();
