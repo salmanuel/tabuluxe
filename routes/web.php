@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ContestController;
+use App\Http\Controllers\CriteriaController;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\LandingController;
 use Illuminate\Foundation\Application;
@@ -59,11 +60,18 @@ Route::middleware([
     Route::get('/events', [EventController::class, 'index'])->name('events');
     Route::post('/events', [EventController::class, 'store'])->name('events.store');
     Route::get('/events/{event}', [EventController::class, 'show'])->name('events.show');
-    Route::put('/events/{event}', [EventController::class, 'update'])->name('events.show');
+    Route::put('/events/{event}', [EventController::class, 'update']);
     Route::delete('/events/{event}', [EventController::class, 'destroy'])->name('events.destroy');
 
     Route::post('/events/{event}', [ContestController::class, 'store'])->name('contests.store');
-    Route::get('/events/contest/{constest}', [ContestController::class, 'show'])->name('contests.show');
+    Route::get('/events/contest/{contest}', [ContestController::class, 'show'])->name('contests.show');
+    Route::put('/events/contest/{contest}', [ContestController::class, 'update']);
+    Route::delete('/events/contest/{contest}', [ContestController::class, 'destroy'])->name('contests.destroy');
+
+    Route::post('/events/contest/{event}', [CriteriaController::class, 'store'])->name('criterias.store');
+
+
+
     // Route::get('/contests/{constest}', [ContestController::class, 'show'])->name('contests.show');
 
 

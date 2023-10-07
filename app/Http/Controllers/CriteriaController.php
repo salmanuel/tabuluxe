@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Contest;
 use App\Models\Criteria;
 use Illuminate\Http\Request;
 
@@ -26,9 +27,22 @@ class CriteriaController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
-    {
-        //
+    public function store(Request $request, Contest $contest) {
+        $request->validate([
+            'criteria' => 'string|required',
+            'description' => 'string|required',
+            'weight' => 'numeric|required',
+        ]);
+
+        Criteria::create([
+            'criteria' => $request->criteria,
+            'description' => $request->description,
+            'weight' => $request->weight,
+            'contest_id' => $contest->id,
+        ]);
+
+
+        return back();
     }
 
     /**

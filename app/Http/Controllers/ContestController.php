@@ -75,7 +75,18 @@ class ContestController extends Controller
      */
     public function update(Request $request, Contest $contest)
     {
-        //
+        $request->validate([
+            'name' => 'required|string',
+            'description' => 'required|string',
+        ]);
+
+        $contest->update([
+            'name' => $request->input('name'),
+            'description' => $request->input('description'),
+        ]);
+    
+        // Optionally, you can return a response or redirect to a specific page
+        return redirect()->route('contests.show', ['contest' => $contest->id])->with('success', 'Contest updated successfully');
     }
 
     /**
@@ -83,6 +94,10 @@ class ContestController extends Controller
      */
     public function destroy(Contest $contest)
     {
-        //
+        $contest->criterias()->delete();
+        $contest->delete();
+
+        // Optionally, you can return a response or redirect to a specific page
+        return redirect('/events');
     }
 }
