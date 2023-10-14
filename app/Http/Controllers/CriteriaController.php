@@ -50,7 +50,12 @@ class CriteriaController extends Controller
      */
     public function show(Criteria $criteria)
     {
-        //
+        // $contests = $event->contests;
+
+        return inertia('Criterias/Show', [
+            'criteria' => $criteria,
+            // 'contests' => $contests
+        ]);
     }
 
     /**
@@ -64,9 +69,22 @@ class CriteriaController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Criteria $criteria)
+    public function update(Request $request, criteria $criteria)
     {
-        //
+        $request->validate([
+            'criteria' => 'required|string',
+            'description' => 'required|string',
+            'weight' => 'required|numeric',
+        ]);
+
+        $criteria->update([
+            'criteria' => $request->input('criteria'),
+            'description' => $request->input('description'),
+            'weight' => $request->input('weight'),
+        ]);
+    
+        // Optionally, you can return a response or redirect to a specific page
+        return redirect()->route('criterias.show', ['criteria' => $criteria->id])->with('success', 'Criteria updated successfully');
     }
 
     /**
@@ -74,6 +92,9 @@ class CriteriaController extends Controller
      */
     public function destroy(Criteria $criteria)
     {
-        //
+        $criteria->delete();
+
+        // Optionally, you can return a response or redirect to a specific page
+        return redirect('/events');
     }
 }

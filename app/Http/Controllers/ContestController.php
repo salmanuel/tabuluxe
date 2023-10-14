@@ -55,10 +55,12 @@ class ContestController extends Controller
     {
         
         $criterias = $contest->criterias;
+        $judges = $contest->judges;
 
         return inertia('Contests/Contest', [
             'contest' => $contest,
             'criterias' => $criterias,
+            'judges' => $judges
         ]);
     }
 

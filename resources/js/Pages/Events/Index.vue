@@ -1,7 +1,7 @@
 <script setup>
 import AuthLayout from '@/Layouts/AuthLayout.vue';
 import EventsCard from '@/Components/EventsCard.vue';
-import { useForm, Link } from '@inertiajs/vue3';
+import { useForm, Link, Head } from '@inertiajs/vue3';
 
 const props = defineProps({
     'events': Array,
@@ -28,7 +28,7 @@ const submit = () => {
 </script>
 
 <template>
-    
+    <Head title="Events"></Head>
     <AuthLayout title="Events">
         <template #header>
             <h2 class="font-semibold text-xl text-[#ffbd59] leading-tight">

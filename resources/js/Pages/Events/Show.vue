@@ -1,6 +1,6 @@
 <script setup>
 import AuthLayout from '@/Layouts/AuthLayout.vue'
-import { useForm, Link } from '@inertiajs/vue3';
+import { useForm, Link, Head } from '@inertiajs/vue3';
 import { provide } from 'vue';
 
 
@@ -43,9 +43,11 @@ const addContest = () => {
 
 
 let eventIdToDelete = null
+let eventTitleToDelete = null;
 
-function confirmDelete(id) {
+function confirmDelete(id, title) {
     eventIdToDelete = id
+    eventTitleToDelete = title
 }
 
 function deleteEvent() {
@@ -58,6 +60,7 @@ function deleteEvent() {
 </script>
 
 <template>
+    <Head title="Contests"></Head>
     
     <AuthLayout>
         <template #header>
@@ -92,7 +95,7 @@ function deleteEvent() {
                             </div>
                             <div class="px-8 my-2 grid gap-y-2 grid-row-2">
                                 <button class="rounded px-24 py-2 bg-green-400 font-bold" type="submit">Save</button>
-                                <button class="rounded px-24 py-2 bg-red-500 font-bold"  data-bs-toggle="modal" data-bs-target="#staticBackdrop" @click="confirmDelete(event.id)">Delete</button>
+                                <button class="rounded px-24 py-2 bg-red-500 font-bold"  data-bs-toggle="modal" data-bs-target="#staticBackdrop" @click="confirmDelete(event.id, event.title)">Delete</button>
                             </div>
                         </div>
                     </form>
@@ -138,13 +141,13 @@ function deleteEvent() {
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h1 class="modal-title fs-5" id="staticBackdropLabel">Modal title</h1>
+                            <h1 class="modal-title fs-5" id="staticBackdropLabel">Delete {{ eventTitleToDelete }}</h1>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
                                 <div class="mb-3 text-center">
                                     <h1 class="text-xl">Are you sure you want to delete this Event?</h1>
-                                    <h1 class="text-md text-gray-500 mt-4">By confirming this, you will delete the contests inside the Event</h1>
+                                    <h1 class="text-md text-red-500 mt-4">By confirming this, you will delete the contests inside the Event.</h1>
                                 </div>
 
                                 <div class="modal-footer">

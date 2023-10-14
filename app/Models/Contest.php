@@ -20,4 +20,9 @@ class Contest extends Model
     {
         return $this->hasMany(Criteria::class);
     }
+
+    public function judges()
+    {
+        return $this->hasMany(Judge::class);
+    }
 }
