@@ -18,14 +18,12 @@ class EventSeeder extends Seeder
                 'title'=>'MDC Intramurals',
                 'Schedule' => 'October 10, 2023',
                 'venue' => 'Mater Dei College',
-                'user_id' => 1,
                 'computation' => 'Averaging'
             ],
             [
                 'title'=>'MDC Intramurals',
                 'Schedule' => 'October 10, 2023',
                 'venue' => 'Mater Dei College',
-                'user_id' => 1,
                 'computation' => 'Ranking'
 
             ],
@@ -33,7 +31,6 @@ class EventSeeder extends Seeder
                 'title'=>'MDC Intramurals',
                 'Schedule' => 'October 10, 2023',
                 'venue' => 'Mater Dei College',
-                'user_id' => 1,
                 'computation' => 'Complex'
 
             ]

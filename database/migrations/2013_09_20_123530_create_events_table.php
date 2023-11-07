@@ -16,10 +16,8 @@ return new class extends Migration
             $table->string('title');
             $table->string('schedule');
             $table->string('venue');
-            $table->bigInteger('user_id')->unsigned();
             $table->string('computation');
             $table->timestamps();
-            $table->foreign('user_id')->references('id')->on('users');
         });
     }
 

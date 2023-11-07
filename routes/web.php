@@ -4,6 +4,8 @@ use App\Http\Controllers\ContestController;
 use App\Http\Controllers\CriteriaController;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\JudgeController;
+use App\Http\Controllers\JudgeLoginController;
+use App\Http\Controllers\JudgingController;
 use App\Http\Controllers\LandingController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
@@ -24,30 +26,25 @@ Route::get('/', function () {
     return Inertia::render('Welcome', [
         'canLogin' => Route::has('login'),
         'canRegister' => Route::has('register'),
-        'laravelVersion' => Application::VERSION,
-        'phpVersion' => PHP_VERSION,
     ]);
 });
 
 Route::get('/choose', function () {
     return Inertia::render('Choose', [
         'canLogin' => Route::has('login'),
-        // 'canRegister' => Route::has('register'),
-        'laravelVersion' => Application::VERSION,
-        'phpVersion' => PHP_VERSION,
     ]);
 });
 
 Route::get('/judgelogin', function () {
-    return Inertia::render('JudgeLogin', [
+    return Inertia::render('Auth/JudgeLogin', [
         'canLogin' => Route::has('login'),
-        'canRegister' => Route::has('register'),
-        'laravelVersion' => Application::VERSION,
-        'phpVersion' => PHP_VERSION,
     ]);
 });
 
-// Route::get('/choose', [LandingController::class, 'index'])->name('choose');
+Route::middleware(['guest'])->group(function () {
+    Route::get('/judgelogin', [JudgeLoginController::class, 'index'])->name('judgelogin');
+    Route::post('/judgelogin', [JudgeLoginController::class, 'login'])->name('judgelogin.login');   
+});
 
 Route::middleware([
     'auth:sanctum',
@@ -57,6 +54,11 @@ Route::middleware([
     Route::get('/dashboard', function () {
         return Inertia::render('Dashboard');
     })->name('dashboard');
+
+    // Route::middleware('role:judge')->group(function (){
+        Route::get('judging', [JudgingController::class, 'index'])->name('judging');
+        
+    // });
 
     Route::get('/events', [EventController::class, 'index'])->name('events');
     Route::post('/events', [EventController::class, 'store'])->name('events.store');
@@ -76,7 +78,4 @@ Route::middleware([
     
     Route::post('/events/contest/{contest}', [JudgeController::class, 'store'])->name('judges.store');
 
-    // Route::get('/contests/{constest}', [ContestController::class, 'show'])->name('contests.show');
-
-    // Route::get('/contests', [ContestController::class, 'index'])->name('contests');
 });

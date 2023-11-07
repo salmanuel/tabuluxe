@@ -19,7 +19,7 @@ defineProps({
             <template v-else>
                 <Link :href="route('login')" class="mx-auto text-white bg-blue-500 p-4 text-lg rounded-lg shadow-lg font-bold hover:bg-blue-600 hover:text-gray-200 focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">Log in as Admin</Link>
 
-                <Link href="/judgelogin" class="mx-auto text-white bg-blue-500 p-4 text-lg rounded-lg shadow-lg font-bold hover:bg-blue-600 hover:text-gray-200 focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">Login as Judge</Link>
+                <Link :href="route('judgelogin')" class="mx-auto text-white bg-blue-500 p-4 text-lg rounded-lg shadow-lg font-bold hover:bg-blue-600 hover:text-gray-200 focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">Login as Judge</Link>
             </template>
         </div>
 

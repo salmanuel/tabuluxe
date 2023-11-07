@@ -47,7 +47,6 @@ class EventController extends Controller
             'schedule' => $request->schedule,
             'venue' => $request->venue,
             'computation' => $request->computation,
-            'user_id' => auth()->user()->id
         ]);
 
         return redirect('/events');

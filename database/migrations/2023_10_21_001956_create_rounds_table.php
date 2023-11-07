@@ -11,16 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('judges', function (Blueprint $table) {
+        Schema::create('rounds', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('passcode');
-            $table->bigInteger('contest_id')->unsigned();
-            $table->string('access_token');
             $table->timestamps();
-
-            $table->foreign('contest_id')->references('id')->on('contests');
-
         });
     }
 
@@ -29,6 +22,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('judges');
+        Schema::dropIfExists('rounds');
     }
 };

@@ -4,9 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Models\Contest;
 use App\Models\Judge;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
-
+use Spatie\Permission\Models\Role;
 
 class JudgeController extends Controller
 {
@@ -31,20 +32,24 @@ class JudgeController extends Controller
      */
     public function store(Request $request, Contest $contest)
     {   
+        
         $request->validate([
             'name' => 'required|string',
-            'passcode' => 'required|string',
+            'password' => 'required|string|unique:users',
+        ]);
+        
+        // $role = Role::findOrFail(2);
+
+        $judge = User::create([
+            'name' => $request->name,
+            'password' => $request->password,
+            'role_id' => 2,
+            'contest_id' => $contest->id,
         ]);
 
-        Judge::create([
-            'name' => $request->name,
-            'passcode' => $request->passcode,
-            'contest_id' => $contest->id,
-            'access_token' => Str::random(64),
-        ]);
+        // $judge->assignRole('judge');
 
         return back();
-
     }
 
     /**

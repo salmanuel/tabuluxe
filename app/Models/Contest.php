@@ -21,8 +21,8 @@ class Contest extends Model
         return $this->hasMany(Criteria::class);
     }
 
-    public function judges()
+    public function users()
     {
-        return $this->hasMany(Judge::class);
+        return $this->hasMany(User::class);
     }
 }
