@@ -6,6 +6,7 @@ use App\Models\Contest;
 use App\Models\Judge;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Str;
 use Spatie\Permission\Models\Role;
 
@@ -42,7 +43,9 @@ class JudgeController extends Controller
 
         $judge = User::create([
             'name' => $request->name,
-            'password' => $request->password,
+            'passcode' => Crypt::encrypt($request->password, false),
+            // 'passcode' => $request->password,
+            'password' => bcrypt($request->password),
             'role_id' => 2,
             'contest_id' => $contest->id,
         ]);

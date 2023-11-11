@@ -25,10 +25,6 @@ function addJudge() {
     form.post('/events/contest/' + props.contest.id)
 }
 
-// function addJudge() {
-//     form.post('/events/contest/' + props.contest.id, { contest_id: props.contest.id })
-// }
-
 </script>
 
 <template>
@@ -57,7 +53,7 @@ function addJudge() {
                         
                         <td class="whitespace-no-wrap text-center border border-slate-700">
                             <button>
-                                <Link :href="route('contests.show', user.id )" :active="route().current('events')">View</Link>
+                                <Link :href="'/events/contests/' + user.id " :active="route().current('events')">View</Link>
                             </button>
                         </td> 
                     </tr>

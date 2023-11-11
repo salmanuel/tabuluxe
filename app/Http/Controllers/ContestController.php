@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Contest;
 use App\Models\Event;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Crypt;
 
 class ContestController extends Controller
 {
@@ -57,10 +58,19 @@ class ContestController extends Controller
         $criterias = $contest->criterias;
         $users = $contest->users;
 
+        $judges = [];
+        
+        foreach($users as $usr) {
+            $judges[] = [
+                'name' => $usr->name,
+                'password' => Crypt::decrypt($usr->passcode, false)
+            ];
+        }
+
         return inertia('Contests/Contest', [
             'contest' => $contest,
             'criterias' => $criterias,
-            'users' => $users
+            'users' => $judges
         ]);
     }
 

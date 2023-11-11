@@ -24,8 +24,8 @@ const submit = () => {
 <template>
     <AuthenticationCard>
 
-        <div v-if="status" class="mb-4 font-medium text-sm text-green-600">
-            {{ status }}
+        <div v-if="form.errors.error" class="text-red-500 mt-2">
+            {{ form.errors.error }}
         </div>
 
         <form @submit.prevent="submit">
