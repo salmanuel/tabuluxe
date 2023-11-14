@@ -8,6 +8,7 @@ const props = defineProps({
 
 const form = useForm({
     name: '',
+    email: '',
     password: '',
 })
 
@@ -21,8 +22,13 @@ const generateRandomPassword = () => {
     form.password = randomPassword;
 };
 
+const generateEmail = () => {
+    const name = form.name.toLowerCase().replace(/\s+/g, ''); // Convert name to lowercase and remove spaces
+    form.email = `${name}@email.com`;
+};
+
 function addJudge() {
-    form.post('/events/contest/' + props.contest.id)
+    form.post('/contest/' + props.contest.id)
 }
 
 </script>
@@ -35,20 +41,22 @@ function addJudge() {
         </div>
         
         <div class="mt-2">
-            <table class="min-w-full divide-y divide-gray-200 border-separate border-spacing-2 border border-slate-500 rounded">
+            <table class="min-w-full divide-y divide-gray-200 border-separate border-spacing-2 border border-slate-500 rounded ">
                 <thead>
                     <tr>
                         <th class="text-center px-4 py-3 text-left text-xs leading-4 font-bold text-white uppercase tracking-wider bg-blue-900">Name</th>
+                        <th class="text-center px-4 py-3 text-left text-xs leading-4 font-bold text-white uppercase tracking-wider bg-blue-900">Email</th>
                         <th class="text-center px-4 py-3 text-left text-xs leading-4 font-bold text-white uppercase tracking-wider bg-blue-900">Password</th>
                         <th class="text-center px-4 py-3 text-left text-xs leading-4 font-bold text-white uppercase tracking-wider bg-blue-900">...</th>
                     </tr>
                 </thead>
-                <tbody class="bg-white divide-y divide-gray-200">
+                <tbody class="bg-white divide-y divide-gray-200 ">
                     <tr v-if="users.length === 0">
-                        <td colspan="3" class="text-center py-4">No Judges yet</td>
+                        <td colspan="4" class="text-center mb-4 py-4">No Judges yet</td>
                     </tr>
                     <tr v-for="user in users" :key="user.id">
-                        <td class="px-6 py-4 whitespace-no-wrap border border-slate-700">{{ user.name }}</td>    
+                        <td class="px-6 py-4 whitespace-no-wrap border border-slate-700">{{ user.name }}</td>
+                        <td class="px-6 py-4 whitespace-no-wrap border border-slate-700">{{ user.email }}</td>
                         <td class="whitespace-no-wrap text-center border border-slate-700">{{ user.password }}</td>
                         
                         <td class="whitespace-no-wrap text-center border border-slate-700">
@@ -66,29 +74,32 @@ function addJudge() {
             <div class="modal-content">
                 <div class="modal-header">
                     <h1 class="modal-title fs-5" id="staticBackdropLabel">Add Judge</h1>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <button type="button text-dark" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <div class="modal-body">
-                    <form @submit.prevent="addJudge">
-                        <div class="mb-3">
-                            <label for="name" class="form-label">Name</label>
-                            <input type="text" class="form-control rounded" id="name" v-model="form.name">
-                        </div>
+                <form @submit.prevent="addJudge">
+                    <div class="modal-body">
+                            <div class="mb-3">
+                                <label for="name" class="form-label">Name</label>
+                                <input type="text" class="form-control rounded" id="name" v-model="form.name" @input="generateEmail">
+                            </div>
 
-                        <label for="password" class="form-label">Password</label>
-                        <div class="mb-3 flex gap-x-2">
-                            <input type="text" class="form-control rounded" id="password" v-model="form.password">
-                            <button class="btn-primary bg-blue-500 rounded-lg text-white p-2 " @click="generateRandomPassword">Generate Password</button>
-                        </div>
+                            <div class="mb-3">
+                                <label for="email" class="form-label">Email</label>
+                                <input type="email" class="form-control rounded" id="email" v-model="form.email">
+                            </div>
 
-                        <div class="modal-footer">
-                            <button type="button" class="btn bg-gray-400 btn-secondary" data-bs-dismiss="modal">Close</button>
-                            <button  class="btn bg-red-600 btn-primary" type="submit" data-bs-dismiss="modal">Add</button>
-                        </div>
-                    </form>
-                        
-                </div>
-                
+                            <label for="password" class="form-label">Password</label>
+                            <div class="mb-3 flex gap-x-2">
+                                <input type="text" class="form-control rounded" id="password" v-model="form.password">
+                                <button class="btn-primary bg-blue-500 rounded-lg text-white p-2 " @click="generateRandomPassword">Generate Password</button>
+                            </div>  
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn bg-gray-400 btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button  class="btn bg-blue-600 btn-primary" type="submit" data-bs-dismiss="modal">Add</button>
+                    </div>
+                </form>
+
             </div>
         </div>
     </div>

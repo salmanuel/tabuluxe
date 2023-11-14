@@ -13,7 +13,7 @@ let form = useForm({
 })
 
 const submit = () => {
-    form.put('/events/contest/criteria/' + props.criteria.id)
+    form.put('/criteria/' + props.criteria.id)
 }
 
 let criteriaIdToDelete = null

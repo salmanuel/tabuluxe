@@ -7,6 +7,8 @@ use App\Http\Controllers\JudgeController;
 use App\Http\Controllers\JudgeLoginController;
 use App\Http\Controllers\JudgingController;
 use App\Http\Controllers\LandingController;
+use App\Http\Controllers\RoundController;
+use App\Models\Round;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -67,15 +69,16 @@ Route::middleware([
     Route::delete('/events/{event}', [EventController::class, 'destroy'])->name('events.destroy');
 
     Route::post('/events/{event}', [ContestController::class, 'store'])->name('contests.store');
-    Route::get('/events/contest/{contest}', [ContestController::class, 'show'])->name('contests.show');
-    Route::put('/events/contest/{contest}', [ContestController::class, 'update']);
-    Route::delete('/events/contest/{contest}', [ContestController::class, 'destroy'])->name('contests.destroy');
+    Route::get('/contest/{contest}', [ContestController::class, 'show'])->name('contests.show');
+    Route::put('/contest/{contest}', [ContestController::class, 'update']);
+    Route::delete('/contest/{contest}', [ContestController::class, 'destroy'])->name('contests.destroy');
 
-    Route::post('/events/contest/{contest}', [CriteriaController::class, 'store'])->name('criterias.store');
-    Route::get('/events/contest/criteria/{criteria}', [CriteriaController::class, 'show'])->name('criterias.show');
-    Route::put('/events/contest/criteria/{criteria}', [CriteriaController::class, 'update']);
-    Route::delete('/events/contest/criteria/{criteria}', [CriteriaController::class, 'destroy'])->name('criterias.destroy');
+    Route::post('/contest/{contest}', [CriteriaController::class, 'store'])->name('criterias.store');
+    Route::get('/criteria/{criteria}', [CriteriaController::class, 'show'])->name('criterias.show');
+    Route::put('/criteria/{criteria}', [CriteriaController::class, 'update']);
+    Route::delete('/criteria/{criteria}', [CriteriaController::class, 'destroy'])->name('criterias.destroy');
     
-    Route::post('/events/contest/{contest}', [JudgeController::class, 'store'])->name('judges.store');
+    Route::post('/contest/{contest}', [JudgeController::class, 'store'])->name('judges.store');
+    Route::post('/contest/{contest}', [RoundController::class, 'store'])->name('rounds.store');
 
 });

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Contest;
 use App\Models\Round;
 use Illuminate\Http\Request;
 
@@ -26,9 +27,19 @@ class RoundController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
-    {
-        //
+    public function store(Request $request, Contest $contest)
+    {   
+        
+        $request->validate([
+            'rounds' => 'required|numeric',
+        ]);
+
+        $judge = Round::create([
+            'rounds' => $request->rounds,
+            'contest_id' => $contest->id,
+        ]);
+
+        return back();
     }
 
     /**

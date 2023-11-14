@@ -36,21 +36,19 @@ class JudgeController extends Controller
         
         $request->validate([
             'name' => 'required|string',
+            'email' => 'required|string|lowercase|email|max:255|unique:'.User::class,
             'password' => 'required|string|unique:users',
         ]);
-        
-        // $role = Role::findOrFail(2);
 
-        $judge = User::create([
+        User::create([
             'name' => $request->name,
+            'email' => $request->email,
+            'email_verified_at' => '2023-11-14 13:27:50',
             'passcode' => Crypt::encrypt($request->password, false),
-            // 'passcode' => $request->password,
             'password' => bcrypt($request->password),
             'role_id' => 2,
             'contest_id' => $contest->id,
         ]);
-
-        // $judge->assignRole('judge');
 
         return back();
     }

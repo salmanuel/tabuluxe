@@ -8,4 +8,11 @@ use Illuminate\Database\Eloquent\Model;
 class Round extends Model
 {
     use HasFactory;
+
+    protected $guarded = [];
+
+    public function contest()
+    {
+        return $this->belongsTo(Contest::class, 'contest_id');
+    }
 }

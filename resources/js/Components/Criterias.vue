@@ -1,5 +1,20 @@
-<script>
+<script setup>
+import { useForm, Link } from "@inertiajs/vue3";
 
+const props = defineProps({
+    criterias: Array,
+    contest: Object
+})
+
+let form = useForm({
+    criteria: '',
+    description: '',
+    weight: '',
+})
+
+const addCriteria = () => {
+    form.post('/contest/' + props.contest.id)
+};
 </script>
 
 <template>
@@ -35,6 +50,41 @@
                     </tr>
                 </tbody>
             </table>
+        </div>
+    </div>
+    <div class="modal fade" id="staticCritBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="staticBackdropLabel">Add Criteria</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form @submit.prevent="addCriteria">
+                    
+                    <div class="modal-body">
+                            <div class="mb-3">
+                                <label for="criteria" class="form-label">Criteria</label>
+                                <input type="text" class="form-control rounded" id="criteria" v-model="form.criteria">
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="description" class="form-label">Description</label>
+                                <input type="text" class="form-control rounded" id="description" v-model="form.description">
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="weight" class="form-label">Weight</label>
+                                <input type="number" class="form-control rounded" id="weight" v-model="form.weight">
+                            </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn bg-gray-400 btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button  class="btn bg-red-600 btn-primary" type="submit" data-bs-dismiss="modal">Add</button>
+                    </div>
+                </form>
+
+                
+            </div>
         </div>
     </div>
 </template>

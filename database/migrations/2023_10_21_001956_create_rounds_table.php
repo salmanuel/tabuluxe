@@ -13,7 +13,11 @@ return new class extends Migration
     {
         Schema::create('rounds', function (Blueprint $table) {
             $table->id();
+            $table->bigInteger('contest_id')->unsigned()->nullable();
+            $table->integer('rounds');
             $table->timestamps();
+
+            $table->foreign('contest_id')->references('id')->on('contests');
         });
     }
 

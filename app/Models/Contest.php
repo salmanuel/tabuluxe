@@ -25,4 +25,9 @@ class Contest extends Model
     {
         return $this->hasMany(User::class);
     }
+
+    public function rounds()
+    {
+        return $this->hasMany(Round::class);
+    }
 }
